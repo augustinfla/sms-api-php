@@ -64,6 +64,11 @@ class Client
     private $withReplies = false;
 
     /**
+     * @var bool
+     */
+    private $withTransactional = false;
+
+    /**
      * Allows you to choose simulation mode.
      *
      * @var string self::REQUEST_MODE_*
@@ -113,6 +118,11 @@ class Client
         $this->withReplies = $withReplies;
     }
 
+    public function setWithTransactional($withTransactional = true)
+    {
+        $this->withTransactional = $withTransactional;
+    }
+
     public function setSimulationMode()
     {
         $this->requestMode = self::REQUEST_MODE_SIMU;
@@ -146,6 +156,10 @@ class Client
 
         if ($this->withReplies) {
             $data['with_replies'] = 1;
+        }
+
+        if ($this->withTransactional) {
+            $data['transactional'] = 1;
         }
 
         if ($this->sendingTime > (new \DateTime())) {
